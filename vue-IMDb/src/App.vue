@@ -1,9 +1,14 @@
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const API_KEY = 'ffeabaa1-6134-495b-832b-d4b92153805a'
-let response = '';
+const API_KEY = 'ffeabaa1-6134-495b-832b-d4b92153805a';
 let data = '';
+let response = '';
+
+function goToMovie(movieId){
+  window.location.href = `/movie.html?id=${movieId}`;
+}
+
   async function f(){
     response = await fetch('https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1', {
       headers: {
@@ -12,7 +17,6 @@ let data = '';
       }
     });
     data = await response.json();
-
     createCard(data);
   }
 
@@ -23,7 +27,7 @@ let data = '';
     let html = '';
 
     html += `
-    <div class="card">
+    <div class="card" data-id="${movie.filmId}">
       <div class="poster">
         <p class="ratingImage">${movie.rating}</p>
         <img src="${movie.posterUrlPreview}" class="imageFilm" width="300">
@@ -38,6 +42,15 @@ let data = '';
     `;
     container.innerHTML += html;
   }
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const movieId = card.dataset.id;
+      if(movieId){
+        goToMovie(movieId);
+      }
+    });
+  });
   }
 
   onMounted(() => {
@@ -119,7 +132,7 @@ let data = '';
     height: 500px;
     position: relative;
     background: linear-gradient(125deg, #0a0a0f 0%, #1a1a2e 100%);
-    border-radius: 40px;
+    border-radius: 20px;
     z-index: 0;
     margin-top: 30px;
   }
@@ -143,7 +156,7 @@ let data = '';
     inset: 0;
     position: absolute;
     background: radial-gradient(circle at 10% 95%, rgba(0, 26, 172, 0.3), rgba(255,85,0,0) 35%);
-    border-radius: 40px;
+    border-radius: 20px;
   }
   .hero-glow-2{
     z-index: 1;

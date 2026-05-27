@@ -1,0 +1,50 @@
+html{
+    background: #17181b;
+}
+html, body{
+    margin: 0;
+    padding: 0;
+}
+.bg{
+    display: flex;
+    background: #101113;
+    height: 60px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo{
+    font-family: Freemono, monospace;
+    background: rgb(224, 224, 0);
+    padding: 5px;
+    border-radius: 7px;
+    margin-left: 20px;
+  }
+  .input{
+    position: relative;
+    left: -50%;
+    transform: translateX(50%);
+    width: 250px;
+    height: 20px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 16px;
+    font-family: Georgia, serif;
+  }
+  .input::placeholder{
+    font-size: 16px;
+  }
+.info{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.information{
+    margin-left: 30px;
+    color: white;
+    font-size: 24px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+#image{
+    border-radius: 15px;
+    border: 1px solid black;
+}
