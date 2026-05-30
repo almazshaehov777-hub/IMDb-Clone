@@ -19,20 +19,6 @@ html, body{
     border-radius: 7px;
     margin-left: 20px;
   }
-  .input{
-    position: relative;
-    left: -50%;
-    transform: translateX(50%);
-    width: 250px;
-    height: 20px;
-    border-radius: 10px;
-    border: 0;
-    font-size: 16px;
-    font-family: Georgia, serif;
-  }
-  .input::placeholder{
-    font-size: 16px;
-  }
 .info{
     display: flex;
     justify-content: center;
@@ -42,9 +28,48 @@ html, body{
     margin-left: 30px;
     color: white;
     font-size: 24px;
-    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 #image{
-    border-radius: 15px;
+    border-radius: 20px;
     border: 1px solid black;
+}
+.mainInfo{
+  width: 70%;
+}
+.divInfo{
+  display: flex;
+  justify-content: center;
+}
+.descriptionTab{
+  margin-left: 20px;
+  margin-top: 40px;
+  color: white;
+  font-size: 26px;
+  font-family: Freemono, monospace;
+  border: 2px solid lightgray;
+  padding: 10px;
+}
+#description{
+  color: white;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.backBtn{
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 27px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #36393e;
+  color: white;
+  margin-left: 35px;
+  margin-top: 25px;
+}
+.nameDesDiv{
+  display: flex;
+  justify-content: center;
 }

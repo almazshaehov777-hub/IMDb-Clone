@@ -43,3 +43,6 @@ html, body{
     border: 1px solid red;
     transform: translateY(-10px) scale(1.02);
 }
+main{
+    min-height: 100vh;
+}

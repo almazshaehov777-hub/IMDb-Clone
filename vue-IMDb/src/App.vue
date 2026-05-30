@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue';
 const API_KEY = 'ffeabaa1-6134-495b-832b-d4b92153805a';
 let data = '';
 let response = '';
+const input = document.getElementById('inputSearch');
 
 function goToMovie(movieId){
   window.location.href = `/movie.html?id=${movieId}`;
@@ -62,7 +63,7 @@ function goToMovie(movieId){
   <header>
     <div class="bg">
       <h2 class="logo">IMDb</h2>
-      <input type="text" class="input" placeholder="...search">
+      <input type="text" class="input" placeholder="...search" id="inputSearch">
     </div>
   </header>
 
@@ -82,7 +83,10 @@ function goToMovie(movieId){
   </main>
 
   <footer>
-
+    <div class="bgFooter">
+      <p>© 2026 · Данные: Kinopoisk API Unofficial</p>
+      <a href="https://github.com/almazshaehov777-hub/IMDb-Clone" target="_blank"><img src="./image/github (1).png" width="40" class="imageFooter"></a>
+    </div>
   </footer>
 </template>
 
@@ -182,5 +186,18 @@ function goToMovie(movieId){
     justify-content: center;
     margin-top: 30px;
     gap: 50px;
+  }
+  .bgFooter{
+    background: #101113;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 35px;
+    margin-top: 70px;
+  }
+  .imageFooter{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
   }
 </style>
