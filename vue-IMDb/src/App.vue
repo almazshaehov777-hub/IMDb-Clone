@@ -1,14 +1,24 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const API_KEY = 'ffeabaa1-6134-495b-832b-d4b92153805a';
 let data = '';
 let response = '';
-const input = document.getElementById('inputSearch');
+const films = ref([]);
+const search = ref('');
 
 function goToMovie(movieId){
   window.location.href = `/movie.html?id=${movieId}`;
 }
+
+const filteredFilm = computed(() => {
+  if(!search.value){
+    return films.value;
+  }
+  return films.value.filter(movie => 
+    movie.nameRu.toLowerCase().includes(search.value.toLowerCase())
+  );
+});
 
   async function f(){
     response = await fetch('https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1', {
@@ -18,40 +28,7 @@ function goToMovie(movieId){
       }
     });
     data = await response.json();
-    createCard(data);
-  }
-
-  function createCard(data){
-    for(let i = 0; i<data.films.length; ++i){
-    let container = document.querySelector('.films');
-    let movie = data.films[i];
-    let html = '';
-
-    html += `
-    <div class="card" data-id="${movie.filmId}">
-      <div class="poster">
-        <p class="ratingImage">${movie.rating}</p>
-        <img src="${movie.posterUrlPreview}" class="imageFilm" width="300">
-      </div>
-
-      <div class="information">
-        <p class="name">${movie.nameRu}</p>
-        <p class="rating">${movie.rating}⭐</p>
-        <p class="year">${movie.year} ● ${movie.genres?.[0]?.genre}</p>
-      </div>
-  </div>
-    `;
-    container.innerHTML += html;
-  }
-
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-      const movieId = card.dataset.id;
-      if(movieId){
-        goToMovie(movieId);
-      }
-    });
-  });
+    films.value = data.films;
   }
 
   onMounted(() => {
@@ -63,7 +40,7 @@ function goToMovie(movieId){
   <header>
     <div class="bg">
       <h2 class="logo">IMDb</h2>
-      <input type="text" class="input" placeholder="...search" id="inputSearch">
+      <input type="text" class="input" placeholder="...search" v-model="search">
     </div>
   </header>
 
@@ -72,13 +49,33 @@ function goToMovie(movieId){
       <div class="hero-glow"></div>
       <div class="hero-glow-2"></div>
       <div class="hero-content">
-        <h1 class="text">Сотни фильмов в одном месте</h1>
+        <h1 class="text">Сотни фильмов <span class="hero-text-1">в одном месте</span></h1>
         <p class="dest">Выбирите подходящий фильм себе на вечер</p>
+      <div class="achivments">
+        <div>
+          <h2>250+</h2>
+          <p>Фильмов</p>
+        </div>
+        <div>
+          <h2>Кинопоиск</h2>
+          <p>Рейтинг</p>
+        </div>
+      </div>
       </div>
     </section>
 
     <div class="films">
+      <div class="card" :data-id="movie.filmId" v-for="movie in filteredFilm" :key="movie.filmId" @click="goToMovie(movie.filmId)">
+      <div class="poster">
+        <p class="ratingImage">{{ movie.rating }}</p>
+        <img :src="movie.posterUrlPreview" class="imageFilm" width="300">
+      </div>
 
+      <div class="information">
+        <p class="name">{{ movie.nameRu }}</p>
+        <p class="year">{{ movie.year }} ● {{ movie.genres?.[0]?.genre }}</p>
+      </div>
+      </div>
     </div>
   </main>
 
@@ -99,11 +96,13 @@ function goToMovie(movieId){
     justify-content: space-between;
   }
   .logo{
-    font-family: Freemono, monospace;
-    background: rgb(224, 224, 0);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 5px;
     border-radius: 7px;
     margin-left: 20px;
+    background: -webkit-linear-gradient(left, yellow, rgb(255, 174, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .input{
     position: relative;
@@ -171,14 +170,12 @@ function goToMovie(movieId){
   .text{
     font-size: 35px;
     font-family: Freemono, monospace;
-    background: -webkit-linear-gradient(left, white, rgba(189, 63, 0, 0.3));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
   .dest{
     font-size: 18px;
     font-family: Freemono,monospace;
     color: lightgray;
+    opacity: 0.85;
   }
   .films{
     display: grid;
@@ -199,5 +196,27 @@ function goToMovie(movieId){
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+  }
+  .hero-text-1{
+    background: -webkit-linear-gradient(10deg, #f5b042, #ff6b6b);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .achivments{
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    text-align: center;
+  }
+  .achivments>div>h2{
+    background: -webkit-linear-gradient(bottom, rgb(255, 139, 30), rgb(255, 186, 58));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Freemono, monospace;
+  }
+  .achivments>div>p{
+    font-size: 18px;
+    opacity: 0.6;
+    font-family: Freemono, monospace;
   }
 </style>

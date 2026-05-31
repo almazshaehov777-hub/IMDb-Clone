@@ -27,7 +27,7 @@ async function f(){
     let minutes = data.filmLength % 60;
     image.src = data.posterUrlPreview;
     name.textContent += data.nameRu;
-    rating.textContent += data.ratingImdb + '⭐';
+    rating.textContent += data.ratingKinopoisk + '⭐';
     year.textContent += data.year;
     description.textContent = data.description;
     genre.textContent += data.genres?.[0]?.genre;
